@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: test-db-despachos
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_DATABASE: db_despachos
+    volumes:
+      - despachos-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 5
+
+  backend-despachos:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: test-backend-despachos
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_ENDPOINT=db
+      - DB_PORT=3306
+      - DB_NAME=db_despachos
+      - DB_USERNAME=root
+      - DB_PASSWORD=root_pass
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  despachos-db-data:
+    name: innovatech-despachos-db-data
