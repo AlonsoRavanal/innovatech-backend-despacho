@@ -291,4 +291,4 @@ El pipeline ejecuta los siguientes pasos:
 2. **Push** — publica la imagen en el registro de contenedores (ECR o Docker Hub)
 3. **Deploy** — despliega la imagen actualizada en la instancia EC2 correspondiente
 
-Las credenciales de AWS y del registro de imágenes se gestionan como **GitHub Secrets** y nunca se exponen en el código.
+Las credenciales del registro de imágenes se gestionan como **GitHub Secrets** y nunca se exponen en el código.
